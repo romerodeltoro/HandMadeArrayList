@@ -1,8 +1,7 @@
-package handMadeArrayList;
+package handmadearraylist;
 
-import handMadeArrayList.list.HandMadeList;
-import handMadeArrayList.list.impl.HandMadeArrayList;
-import org.junit.jupiter.api.BeforeEach;
+import handmadearraylist.list.HandMadeList;
+import handmadearraylist.list.impl.HandMadeArrayList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,10 +13,6 @@ public class HandMadeArrayListTest {
 
     private final HandMadeList<Integer> list = new HandMadeArrayList<>();
 
-    @BeforeEach
-    void setUp() {
-
-    }
 
     @Test
     @DisplayName("Добавление элемента в список")
@@ -28,7 +23,7 @@ public class HandMadeArrayListTest {
         final int actualE = list.get(0);
         final int size = list.size();
 
-        assertEquals(e,  actualE);
+        assertEquals(e, actualE);
         assertEquals(1, size);
     }
 
@@ -42,7 +37,7 @@ public class HandMadeArrayListTest {
         final int actualE = list.get(0);
         final int size = list.size();
 
-        assertEquals(e,  actualE);
+        assertEquals(e, actualE);
         assertEquals(2, size);
     }
 
@@ -65,7 +60,7 @@ public class HandMadeArrayListTest {
         final int actualE = list.get(0);
         final int size = list.size();
 
-        assertEquals(e,  actualE);
+        assertEquals(e, actualE);
         assertEquals(1, size);
     }
 
@@ -185,7 +180,6 @@ public class HandMadeArrayListTest {
     @DisplayName("Быстрая сортировка списка")
     void sortList() {
         final List<Integer> sortedList = List.of(3, 9, 99);
-
         list.add(9);
         list.add(99);
         list.add(3);

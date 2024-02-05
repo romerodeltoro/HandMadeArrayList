@@ -1,8 +1,10 @@
-package handMadeArrayList.list.impl;
+package handmadearraylist.list.impl;
 
-import handMadeArrayList.list.HandMadeList;
+import handmadearraylist.list.HandMadeList;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 
 public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<T> {
     private int size = 0;
@@ -13,14 +15,12 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         this.elements = new Object[DEFAULT_CAPACITY];
     }
 
+    @Override
     public int size() {
         return size;
     }
 
-    /**
-     * Сначала проверяем, достиг ли размер массива вместимости.
-     * Если достиг — увеличиваем вместимость, иначе сразу добавляем элемент
-     */
+    @Override
     public void add(T newElement) {
         if (size == elements.length) {
             grow();
@@ -29,6 +29,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         size += 1;
     }
 
+    @Override
     public void add(int index, T newElement) {
         if (size == elements.length) {
             grow();
@@ -38,6 +39,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         size += 1;
     }
 
+    @Override
     public Object set(int index, T element) {
         Objects.checkIndex(index, size);
         Object oldValue = elements[index];
@@ -45,6 +47,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         return oldValue;
     }
 
+    @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new ArrayIndexOutOfBoundsException("Element with index " + index + " does not exist");
@@ -52,6 +55,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         return (T) this.elements[index];
     }
 
+    @Override
     public void clear() {
         final Object[] es = elements;
         for (int to = size, i = size = 0; i < to; i++) {
@@ -59,8 +63,9 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         }
     }
 
+    @Override
     public boolean remove(Object o) {
-        if(!contains(o)) {
+        if (!contains(o)) {
             return false;
         } else {
             final Object[] es = elements;
@@ -78,10 +83,12 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         return new Iterator<T>() {
             int next;
             int lastRet = -1;
+
             @Override
             public boolean hasNext() {
                 return next != size;
             }
+
             @Override
             public T next() {
                 int i = next;
@@ -94,6 +101,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         };
     }
 
+    @Override
     public boolean contains(Object o) {
         Iterator<T> it = iterator();
         if (o == null) {
@@ -112,6 +120,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         return false;
     }
 
+    @Override
     public int indexOf(Object o) {
         if (contains(o)) {
             for (int i = 0; i < size; i++) {
@@ -123,9 +132,6 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         return -1;
     }
 
-    /**
-     * Заменяем текущий массив элементов elements на новый с вместимостью +50%
-     */
     private void grow() {
         Object[] newArray = new Object[elements.length + elements.length / 2];
         for (int i = 0; i < elements.length; i++) {
@@ -134,6 +140,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         this.elements = newArray;
     }
 
+    @Override
     public void quickSort(int from, int to) {
         if (from < to) {
             int divideIndex = partition(from, to);
@@ -142,7 +149,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
         }
     }
 
-    private int partition (int from, int to) {
+    private int partition(int from, int to) {
         T pivot = get(to);
         int i = from - 1;
 
