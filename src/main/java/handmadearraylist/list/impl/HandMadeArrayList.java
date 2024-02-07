@@ -2,11 +2,13 @@ package handmadearraylist.list.impl;
 
 import handmadearraylist.list.HandMadeList;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
 public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<T> {
+    public static final String OUT_OF_BOUND_MSG = "Element with index %d does not exist";
     private int size = 0;
     private Object[] elements;
     private static final int DEFAULT_CAPACITY = 10;
@@ -50,7 +52,7 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
     @Override
     public T get(int index) {
         if (index < 0 || index >= size) {
-            throw new ArrayIndexOutOfBoundsException("Element with index " + index + " does not exist");
+            throw new ArrayIndexOutOfBoundsException(String.format(OUT_OF_BOUND_MSG, index)); // так лучше
         }
         return (T) this.elements[index];
     }
@@ -104,17 +106,9 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
     @Override
     public boolean contains(Object o) {
         Iterator<T> it = iterator();
-        if (o == null) {
-            while (it.hasNext()) {
-                if (it.next() == null) {
-                    return true;
-                }
-            }
-        } else {
-            while (it.hasNext()) {
-                if (o.equals(it.next())) {
-                    return true;
-                }
+        while (it.hasNext()) {
+            if (Objects.equals(o, it.next())) {
+                return true;
             }
         }
         return false;
@@ -122,11 +116,9 @@ public class HandMadeArrayList<T extends Comparable<T>> implements HandMadeList<
 
     @Override
     public int indexOf(Object o) {
-        if (contains(o)) {
-            for (int i = 0; i < size; i++) {
-                if (o.equals(elements[i])) {
-                    return i;
-                }
+        for (int i = 0; i < size; i++) {// зачем два раза пробегаться по массиву?
+            if (Objects.equals(o, elements[i])) {
+                return i;
             }
         }
         return -1;

@@ -9,7 +9,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class HandMadeArrayListTest {
+// Хорошие тесты, молодец
+class HandMadeArrayListTest {
 
     private final HandMadeList<Integer> list = new HandMadeArrayList<>();
 
@@ -23,7 +24,7 @@ public class HandMadeArrayListTest {
         final int actualE = list.get(0);
         final int size = list.size();
 
-        assertEquals(e, actualE);
+        assertEquals(e, actualE); // несколько ассертов вставляются в assertAll
         assertEquals(1, size);
     }
 
